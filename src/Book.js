@@ -4,7 +4,7 @@ import UpdateCategory from "./updateCategory.js"
 
 
 //p === props
-const Book = (p) => 
+const Book = (props) => 
 {
 
     Book.propTypes = {
@@ -12,26 +12,28 @@ const Book = (p) =>
         currBook: PropTypes.object.isRequired
     }
 
+    const {title, authors} = props.currBook;
+
     return <li>
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover"
                         style={{
                             width: 128, height: 192,
-                            backgroundImage: ((p.currBook.imageLinks && p.currBook.imageLinks.smallThumbnail) ?
-                                `url(${p.currBook.imageLinks.smallThumbnail})` : "none")
+                            backgroundImage: ((props.currBook.imageLinks && props.currBook.imageLinks.smallThumbnail) ?
+                                `url(${props.currBook.imageLinks.smallThumbnail})` : "none")
                         }}>
                     </div>
                     <UpdateCategory
-                        changeCategory={p.changeCategory}
-                        category={p.currBook.shelf}
-                        currBook={p.currBook}
+                        changeCategory={props.changeCategory}
+                        category={props.currBook.shelf}
+                        currBook={props.currBook}
                     />
                 </div>
-                <div className="book-title">{p.currBook.title}</div>
+                <div className="book-title">{title}</div>
                 <div className="book-authors">
                 {
-                    (p.currBook.authors && p.currBook.authors.length) > 1 ? p.currBook.authors.join(", ") : p.currBook.authors
+                    (authors && authors.length) > 1 ? authors.join(", ") : authors
                 }
                 </div>
             </div>

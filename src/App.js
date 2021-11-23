@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from "./Search.js"
 import Category from './Category'
-import { Route,Routes, Link } from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 
@@ -38,9 +38,8 @@ const BooksApp = () => {
   }
 
   return (
-    
+
     <div className="app">
-      {/* <Routes> */}
       <Route
         path="/Search"
         render={() => (
@@ -55,11 +54,9 @@ const BooksApp = () => {
         exact path="/"
         render={() => (
           <div className="list-books">
-            {/* //////////////////////////////////////// */}
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            {/* //////////////////////////////////////// */}
             <div className="list-books-content">
               <div>
                 <Category
@@ -84,10 +81,13 @@ const BooksApp = () => {
                 />
               </div>
             </div>
+            <div className="open-search">
+              <Link to="/search">Add a book</Link>
+            </div>
           </div>
         )}
       />
-      {/* </Routes> */}
+
     </div>
   )
 }
