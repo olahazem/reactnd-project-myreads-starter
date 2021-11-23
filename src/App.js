@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from "./Search.js"
 import Category from './Category'
-import { Route, Routes, Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 
@@ -38,7 +38,7 @@ const BooksApp = () => {
   }
 
   return (
-
+    
     <div className="app">
       <Route
         path="/Search"
@@ -82,7 +82,7 @@ const BooksApp = () => {
               </div>
             </div>
             <div className="open-search">
-              <Link to="/search">Add a book</Link>
+              <Link to="/search">Search Library</Link>
             </div>
           </div>
         )}

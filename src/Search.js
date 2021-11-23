@@ -4,7 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import { Link } from "react-router-dom";
 import Book from "./Book";
 
-const Search = (p) => {
+const Search = (props) => {
 
   Search.propTypes = {
     booksArr: PropTypes.array.isRequired,
@@ -14,19 +14,35 @@ const Search = (p) => {
   let [query, setquery] = useState("");
   let [searchItems, setsearchItems] = useState([]);
 
+  
   const updateQuery = (query) => {
+    
+    const allBooks = props.booksArr
     setquery(query);
-
+    var newResults = []
     BooksAPI.search(query).then((res) => {
       if (res && res.length > 0) {
-        for (let i = 0; i < res.length; i++) {
-          for (let j = 0; i < p.booksArr.length; j++) {
-            if (res[i].id === p.booksArr[j].id) {
-              const shelvedIdx = p.booksArr.findIndex((book) => book.id === res[i].id)
-              res[i].shelf = p.booksArr[shelvedIdx].shelf
-            }
-          }
+        // console.log(res)
+        // console.log(allBooks)
+        
+        let size = res.length 
+        
+        for (let i = 0; i < size; i++) {    
+      
+          allBooks.forEach(book => {
+            const one = res[i].id
+            const two = book.id
+            if (one === two)
+            {
+              // console.log("found")
+              const shelvedIdx = allBooks.findIndex((b) => b.id === res[i].id)
+              res[i].shelf = allBooks[shelvedIdx].shelf
+              newResults = res.filter((book)=>book.id!==res[i].id)                            
+            }            
+          });
         }
+        // console.log(newResults)
+        setsearchItems(newResults)
       }
     })
   }
@@ -37,21 +53,25 @@ const Search = (p) => {
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
 
-          <input type="text" placeholder="Search by title or author"
-            onChange={(event) => updateQuery(event.target.value)} />
-
+          <input type="text" 
+          value={query}
+          placeholder="Search by title or author"
+          onChange={(event) => updateQuery(event.target.value)} />
         </div>
       </div>
 
       <div className="search-books-results">
         <ol className="books-grid">
           {
+            
             searchItems && searchItems.length > 0 && searchItems.map((book) => (
+
               <Book
                 key={book.id}
-                changeCategory={p.changeCategory}
+                changeCategory={props.changeCategory}
                 currBook={book}
               />
+              
             ))
           }
         </ol>
