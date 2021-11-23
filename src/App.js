@@ -38,7 +38,7 @@ const BooksApp = () => {
   }
 
   return (
-    
+
     <div className="app">
       <Route
         path="/Search"
@@ -82,7 +82,12 @@ const BooksApp = () => {
               </div>
             </div>
             <div className="open-search">
-              <Link to="/search">Search Library</Link>
+
+              <Link to="/search">
+                <button className="open-search">
+                  Search Library
+                </button>
+              </Link>
             </div>
           </div>
         )}
